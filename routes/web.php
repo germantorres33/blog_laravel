@@ -1,6 +1,10 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CursoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +17,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', HomeController::class);
+
+//Argupación de rutas - Laravel 9
+//Agrupar rutas - Mejorar rendimiento y codigo para evitar estar escribiendo varias veces la ruta de CursoController y solo reutilizando eso mismo para llegar a alcanzarlo y procese la solicitud
+// Route::controller(CursoController::class)->group(function(){
+//     Route::get('cursos', 'index');
+//     Route::get('cursos/create', 'create');
+//     Route::get('cursos/{curso}', 'show');
+// });
+
+
+Route::get('cursos', [CursoController::class, 'index']);
+Route::get('cursos/create',[CursoController::class, 'create']);
+Route::get('cursos/{curso}',[CursoController::class, 'show']);
+
+
+
+// Route::get('cursos/{cursos}/{categoria?}', function ($curso, $categoria = null) {
+
+//     if ($categoria) {
+//         return "Bienvenido al curso $curso de la categoria $categoria";
+//     }else{
+//         return "Bienvenido al curso: $curso";
+//     }
+    
+// });
